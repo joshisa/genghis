@@ -399,6 +399,22 @@ end
 module Genghis
   module Models
     class Database
+      # Extract the connection string for the mongodb service from the
+      # service information provided by Cloud Foundry in an environment
+      # variable.
+
+      def mongodb_user
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['username']
+      end
+
+      def mongodb_password
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['password']
+      end
+
       def initialize(client, name)
         @client = client
         @name   = name
@@ -531,9 +547,47 @@ module Genghis
 
       @default = false
 
-      def initialize(dsn)
-        dsn = 'mongodb://'+dsn unless dsn.include? '://'
+      # Extract the connection string for the mongodb service from the
+      # service information provided by Cloud Foundry in an environment
+      # variable.
+      def mongodb_url
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['url']
+      end
+      def mongodb_host
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['host']
+      end
+      def mongodb_port
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['port'].to_s
+      end
 
+      def mongodb_user
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['username']
+      end
+
+      def mongodb_password
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        credentials = services.first['credentials']
+        return credentials['password']
+      end
+
+      def mongodb_servername
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        servername = services.first['name']
+        return servername
+      end
+
+      def initialize(dsn)
+        #dsn = 'mongodb://'+dsn unless dsn.include? '://'
+        #dsn = 'mongodb://admin:0db7efab73b4ac4c857f0dedae3b2a91@'+mongodb_host+':'+ mongodb_port + '/admin'
+        dsn = mongodb_url
         begin
           dsn, uri = get_dsn_and_uri(extract_extra_options(dsn))
 
@@ -548,7 +602,8 @@ module Genghis
 
           if db = uri.auths.map { |a| a[:db_name] || a['db_name'] }.first
             unless db == 'admin'
-              name = "#{name}/#{db}"
+              name = "#{name}"
+              #name = "#{name}/#{db}"
               @db = db
             end
           end

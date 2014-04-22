@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+ruby '1.9.3'
+
 gem 'bson_ext', :require => false
 
 group :development do
