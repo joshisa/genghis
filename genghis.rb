@@ -404,13 +404,13 @@ module Genghis
       # variable.
 
       def mongodb_user
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['username']
       end
 
       def mongodb_password
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['password']
       end
@@ -551,35 +551,35 @@ module Genghis
       # service information provided by Cloud Foundry in an environment
       # variable.
       def mongodb_url
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['url']
       end
       def mongodb_host
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['host']
       end
       def mongodb_port
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['port'].to_s
       end
 
       def mongodb_user
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['username']
       end
 
       def mongodb_password
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         credentials = services.first['credentials']
         return credentials['password']
       end
 
       def mongodb_servername
-        services = ::JSON.parse(ENV['VCAP_SERVICES'])['JSONDB-1.0.0']
+        services = ::JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.2']
         servername = services.first['name']
         return servername
       end

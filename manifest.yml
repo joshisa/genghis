@@ -1,11 +1,11 @@
 ---
 applications:
-- name: genghis
+- name: genghis2
   memory: 512M
   instances: 1
-  host: genghis
+  host: genghis2
   domain: ng.bluemix.net
   path: .
   command: ruby genghis.rb
   services:
-  - jsondbImageStore
+  - mongodb-32
